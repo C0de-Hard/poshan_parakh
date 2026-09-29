@@ -9,10 +9,18 @@ Endpoints
 """
 import os, tempfile
 from fastapi import Body, FastAPI, File, Form, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from poshanparakh.pipeline import analyze_barcode, analyze_food_photo, analyze_image, analyze_name
 from poshanparakh.recommender import recommend
 
 app = FastAPI(title="PoshanParakh API")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://poshan-parakh.vercel.app", "http://localhost:5173"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def _profile(prefs: str = "", allergies: str = "") -> dict:
     split = lambda s: [x.strip() for x in s.split(",") if x.strip()]
