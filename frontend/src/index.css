@@ -1,0 +1,57 @@
+:root {
+  --ink: #202b30;
+  --ink-soft: #55636a;
+  --paper: #f1f3ee;
+  --panel: #fbfbf8;
+  --line: #cfd3c8;
+  --high: #3f6b58;
+  --mid: #a9772f;
+  --low: #9c4a3c;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+.app {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  min-height: 100vh;
+  padding: 28px 20px 60px;
+}
+.masthead { max-width: 760px; margin: 0 auto 18px; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
+.masthead h1 { font-family: 'Source Serif 4', Georgia, serif; font-weight: 600; font-size: 28px; margin: 0 0 6px; letter-spacing: -0.01em; }
+.masthead p { margin: 0; color: var(--ink-soft); font-size: 14px; line-height: 1.5; max-width: 600px; }
+.panel { max-width: 760px; margin: 0 auto 18px; border: 1px solid var(--line); background: var(--panel); padding: 16px; }
+.tabs { display: flex; gap: 0; margin-bottom: 12px; border-bottom: 1px solid var(--line); }
+.tab { border: 0; border-bottom: 2px solid transparent; background: transparent; padding: 8px 4px; margin-right: 20px; font: inherit; font-size: 13.5px; color: var(--ink-soft); cursor: pointer; }
+.tab.active { color: var(--ink); border-bottom-color: var(--ink); }
+.search-row { display: flex; gap: 8px; }
+.search-row input { flex: 1; border: 1px solid var(--line); padding: 9px 10px; font-size: 14px; background: #fff; font-family: 'IBM Plex Mono', monospace; }
+.search-row button { border: 1px solid var(--ink); background: var(--ink); color: #fff; padding: 9px 16px; font-size: 13px; cursor: pointer; }
+.search-row button:disabled { opacity: 0.5; cursor: default; }
+.samples { font-size: 12px; color: var(--ink-soft); margin-top: 10px; line-height: 1.6; }
+.samples code { background: #eceee7; padding: 1px 5px; cursor: pointer; }
+.scanner-tools { display: flex; align-items: center; gap: 10px; margin-top: 12px; color: var(--ink-soft); font-size: 12px; }
+.camera-button { border: 1px solid var(--ink); background: #fff; color: var(--ink); padding: 8px 12px; font-size: 12px; cursor: pointer; }
+.camera-button.secondary { background: var(--ink); color: #fff; }
+.camera-button:disabled { opacity: 0.5; cursor: default; }
+.scanner { position: relative; overflow: hidden; margin-top: 14px; background: #101716; aspect-ratio: 16 / 9; }
+.scanner video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.scanner-frame { position: absolute; inset: 18% 12%; border: 2px solid #d8e7cf; box-shadow: 0 0 0 999px rgb(16 23 22 / 28%); pointer-events: none; }
+.scan-error { color: var(--low); font-size: 12px; margin-top: 10px; }
+.error { color: var(--low); font-size: 13px; margin: 10px 0; }
+.source-tag { display: inline-block; font-size: 10.5px; padding: 2px 6px; border: 1px solid var(--line); color: var(--ink-soft); margin-left: 8px; }
+.dossier { max-width: 760px; margin: 0 auto; border: 1px solid var(--line); background: var(--panel); padding: 18px 20px; }
+.dossier h2 { font-family: 'Source Serif 4', Georgia, serif; font-size: 20px; margin: 0 0 2px; }
+.brand { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 4px; }
+.ingredients { font-size: 12px; color: var(--ink-soft); margin-bottom: 16px; line-height: 1.5; }
+.composite-line { display: flex; align-items: baseline; gap: 8px; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.composite-num { font-family: 'IBM Plex Mono', monospace; font-size: 34px; font-weight: 600; }
+.composite-label { font-size: 13px; color: var(--ink-soft); }
+.crit-row { margin-bottom: 10px; }
+.crit-head { display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 3px; }
+.crit-head .val { font-family: 'IBM Plex Mono', monospace; color: var(--ink-soft); }
+.bar-track { height: 6px; background: #e3e6dc; width: 100%; }
+.bar-fill { height: 6px; }
+.tone-high { color: var(--high); } .fill-high { background: var(--high); }
+.tone-mid { color: var(--mid); } .fill-mid { background: var(--mid); }
+.tone-low { color: var(--low); } .fill-low { background: var(--low); }

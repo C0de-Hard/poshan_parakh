@@ -1,0 +1,52 @@
+[
+ {
+  "energy_kcal": 520,
+  "protein_g": 6.5,
+  "fat_g": 30,
+  "sat_fat_g": 12,
+  "carbs_g": 55,
+  "sugar_g": 34,
+  "fibre_g": 2.1,
+  "sodium_mg": 210
+ },
+ {
+  "energy_kcal": 380,
+  "protein_g": 9,
+  "fat_g": 14,
+  "sat_fat_g": 6.2,
+  "carbs_g": 52,
+  "sugar_g": 3.5,
+  "fibre_g": 6,
+  "sodium_mg": 890
+ },
+ {
+  "energy_kcal": 60,
+  "protein_g": 0.5,
+  "fat_g": 0,
+  "sat_fat_g": 0,
+  "carbs_g": 15,
+  "sugar_g": 14,
+  "fibre_g": 0,
+  "sodium_mg": 25
+ },
+ {
+  "energy_kcal": 450,
+  "protein_g": 8.2,
+  "fat_g": 22,
+  "sat_fat_g": 9.5,
+  "carbs_g": 55,
+  "sugar_g": 5,
+  "fibre_g": 3.4,
+  "sodium_mg": 1150
+ },
+ {
+  "energy_kcal": 150,
+  "protein_g": 12,
+  "fat_g": 3.2,
+  "sat_fat_g": 1.1,
+  "carbs_g": 20,
+  "sugar_g": 2.8,
+  "fibre_g": 4.5,
+  "sodium_mg": 95
+ }
+]

@@ -1,0 +1,15 @@
+pytesseract
+opencv-python
+pillow
+requests
+numpy
+pandas
+scikit-learn
+joblib
+fastapi
+uvicorn
+python-multipart
+# CNN food classifier (Algorithm 1) - only needed for train_cnn.py / /classify
+torch
+torchvision
+# OCR also needs the Tesseract binary:  brew install tesseract   |   sudo apt install tesseract-ocr
