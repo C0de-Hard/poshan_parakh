@@ -24,6 +24,7 @@ body { margin: 0; }
 .tabs { display: flex; gap: 0; margin-bottom: 12px; border-bottom: 1px solid var(--line); }
 .tab { border: 0; border-bottom: 2px solid transparent; background: transparent; padding: 8px 4px; margin-right: 20px; font: inherit; font-size: 13.5px; color: var(--ink-soft); cursor: pointer; }
 .tab.active { color: var(--ink); border-bottom-color: var(--ink); }
+.tab:disabled { opacity: 0.5; cursor: default; }
 .search-row { display: flex; gap: 8px; }
 .search-row input { flex: 1; border: 1px solid var(--line); padding: 9px 10px; font-size: 14px; background: #fff; font-family: 'IBM Plex Mono', monospace; }
 .search-row button { border: 1px solid var(--ink); background: var(--ink); color: #fff; padding: 9px 16px; font-size: 13px; cursor: pointer; }
@@ -33,6 +34,7 @@ body { margin: 0; }
 .upload-row { display: flex; align-items: center; gap: 10px; margin-top: 12px; color: var(--ink-soft); font-size: 12px; }
 .upload-button { display: inline-block; }
 .upload-button input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.processing-status { margin-top: 10px; color: var(--ink); font-size: 12px; line-height: 1.5; }
 .samples { font-size: 12px; color: var(--ink-soft); margin-top: 10px; line-height: 1.6; }
 .samples code { background: #eceee7; padding: 1px 5px; cursor: pointer; }
 .scanner-tools { display: flex; align-items: center; gap: 10px; margin-top: 12px; color: var(--ink-soft); font-size: 12px; }

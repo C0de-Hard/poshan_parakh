@@ -6,7 +6,7 @@ const SAMPLE_BARCODES = [
   { code: "5000112658000", name: "Diet Coke" },
 ];
 
-export default function LookupForm({ onLookup, onImageUpload, loading }) {
+export default function LookupForm({ onLookup, onImageUpload, loading, loadingAction }) {
   const [mode, setMode] = useState("upload");
   const [query, setQuery] = useState("");
   const [scanning, setScanning] = useState(false);
@@ -57,6 +57,7 @@ export default function LookupForm({ onLookup, onImageUpload, loading }) {
         <button
           className={`tab ${mode === "upload" ? "active" : ""}`}
           onClick={() => { stopScanner(); setMode("upload"); }}
+          disabled={loading}
           type="button"
         >
           Nutrition label
@@ -64,6 +65,7 @@ export default function LookupForm({ onLookup, onImageUpload, loading }) {
         <button
           className={`tab ${mode === "barcode" ? "active" : ""}`}
           onClick={() => setMode("barcode")}
+          disabled={loading}
           type="button"
         >
           Barcode
@@ -71,6 +73,7 @@ export default function LookupForm({ onLookup, onImageUpload, loading }) {
         <button
           className={`tab ${mode === "name" ? "active" : ""}`}
           onClick={() => { stopScanner(); setMode("name"); }}
+          disabled={loading}
           type="button"
         >
           Product name
@@ -87,7 +90,7 @@ export default function LookupForm({ onLookup, onImageUpload, loading }) {
             onKeyDown={(event) => event.key === "Enter" && submit()}
           />
           <button onClick={() => submit()} disabled={loading || scanning} type="button">
-            {loading ? "Looking up..." : "Look up"}
+            {loadingAction === "lookup" ? "Looking up..." : "Look up"}
           </button>
         </div>
       )}
@@ -97,7 +100,7 @@ export default function LookupForm({ onLookup, onImageUpload, loading }) {
           <h2>Nutrition label image</h2>
           <div className="upload-row">
             <label className="camera-button upload-button">
-              Upload image
+              {loadingAction === "upload" ? "Analyzing..." : "Upload image"}
               <input
                 type="file"
                 accept="image/*"
@@ -111,6 +114,11 @@ export default function LookupForm({ onLookup, onImageUpload, loading }) {
             </label>
             <span>Upload a clear photo of the nutrition label or ingredients.</span>
           </div>
+          {loadingAction === "upload" && (
+            <div className="processing-status" role="status" aria-live="polite">
+              Reading the label and calculating the nutrition score. The first request may take up to a minute while the server wakes up.
+            </div>
+          )}
         </div>
       )}
 

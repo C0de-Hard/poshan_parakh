@@ -1,5 +1,29 @@
 const BASE_URL = import.meta.env.VITE_API_URL || "https://poshan-parakh.onrender.com";
 
+async function requestJson(path, options = {}) {
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 90000);
+  try {
+    const res = await fetch(`${BASE_URL}${path}`, { ...options, signal: controller.signal });
+    const text = await res.text();
+    let data;
+    try {
+      data = text ? JSON.parse(text) : {};
+    } catch {
+      data = { error: text || "The server returned an invalid response" };
+    }
+    if (!res.ok) throw new Error(data.detail || data.error || `Request failed (${res.status})`);
+    return data;
+  } catch (error) {
+    if (error.name === "AbortError") {
+      throw new Error("The server took too long to respond. Please try again once Render is awake.");
+    }
+    throw error;
+  } finally {
+    window.clearTimeout(timeout);
+  }
+}
+
 function toFrontendResult(data) {
   if (data.error) throw new Error(data.error);
 
@@ -28,22 +52,13 @@ function toFrontendResult(data) {
 export async function analyzeImage(file) {
   const body = new FormData();
   body.append("file", file);
-  const res = await fetch(`${BASE_URL}/analyze`, { method: "POST", body });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.detail || data.error || "Image analysis failed");
-  return toFrontendResult(data);
+  return toFrontendResult(await requestJson("/analyze", { method: "POST", body }));
 }
 
 export async function lookupByBarcode(code) {
-  const res = await fetch(`${BASE_URL}/barcode/${encodeURIComponent(code)}`);
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Lookup failed");
-  return toFrontendResult(data);
+  return toFrontendResult(await requestJson(`/barcode/${encodeURIComponent(code)}`));
 }
 
 export async function lookupByName(name) {
-  const res = await fetch(`${BASE_URL}/search?q=${encodeURIComponent(name)}`);
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Lookup failed");
-  return toFrontendResult(data);
+  return toFrontendResult(await requestJson(`/search?q=${encodeURIComponent(name)}`));
 }
