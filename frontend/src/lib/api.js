@@ -4,8 +4,14 @@ function toFrontendResult(data) {
   if (data.error) throw new Error(data.error);
 
   const analysis = data.nutrition_analysis || {};
+  const product = data.product || {};
   return {
-    product: data.product || {},
+    product: {
+      ...product,
+      name: product.name || "Uploaded packet label",
+      source: product.source || "ocr",
+      ingredients_text: product.ingredients_text || (data.ingredients || []).join(", "),
+    },
     score: {
       total: analysis.score,
       breakdown: (analysis.breakdown || []).map((row) => ({
@@ -17,6 +23,15 @@ function toFrontendResult(data) {
       })),
     },
   };
+}
+
+export async function analyzeImage(file) {
+  const body = new FormData();
+  body.append("file", file);
+  const res = await fetch(`${BASE_URL}/analyze`, { method: "POST", body });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.detail || data.error || "Image analysis failed");
+  return toFrontendResult(data);
 }
 
 export async function lookupByBarcode(code) {

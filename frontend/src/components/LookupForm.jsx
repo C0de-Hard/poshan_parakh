@@ -6,7 +6,7 @@ const SAMPLE_BARCODES = [
   { code: "5000112658000", name: "Diet Coke" },
 ];
 
-export default function LookupForm({ onLookup, loading }) {
+export default function LookupForm({ onLookup, onImageUpload, loading }) {
   const [mode, setMode] = useState("barcode");
   const [query, setQuery] = useState("");
   const [scanning, setScanning] = useState(false);
@@ -83,6 +83,23 @@ export default function LookupForm({ onLookup, loading }) {
         </button>
       </div>
 
+      <div className="upload-row">
+        <label className="camera-button upload-button">
+          Upload packet image
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(event) => {
+              const file = event.target.files?.[0];
+              if (file) onImageUpload(file);
+              event.target.value = "";
+            }}
+            disabled={loading}
+          />
+        </label>
+        <span>Use a clear photo of the nutrition label or ingredients.</span>
+      </div>
+
       {mode === "barcode" && (
         <div className="scanner-tools">
           {!scanning ? (
@@ -100,7 +117,7 @@ export default function LookupForm({ onLookup, loading }) {
 
       {scanning && (
         <div className="scanner" aria-live="polite">
-          <video ref={videoRef} muted playsInline />
+          <video ref={videoRef} autoPlay muted playsInline />
           <div className="scanner-frame" aria-hidden="true" />
         </div>
       )}

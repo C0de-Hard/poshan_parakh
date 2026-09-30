@@ -4,7 +4,7 @@
 
 ## Current design status
 
-The implemented React/Vite client under `frontend/` presents a packaged-product lookup experience and uses a barcode camera scanner. Its barcode/name path now calls the deployed Python FastAPI service through `frontend/src/lib/api.js`. There is still no frontend control for label-image upload, although the FastAPI `/analyze` endpoint is available separately.
+The implemented React/Vite client under `frontend/` presents a packaged-product lookup experience, barcode camera scanner, and packet-image upload control. Its barcode/name and upload paths call the deployed Python FastAPI service through `frontend/src/lib/api.js`.
 
 ## Existing interface structure
 
@@ -34,9 +34,9 @@ The page styling is intentionally simple and information-oriented. CSS includes 
 
 ## Current interface limitations
 
-- No label-photo upload, OCR preview, editable extracted values, or OCR uncertainty display.
+- No editable extracted values, OCR confidence display, or correction workflow.
 - No dietary preference/allergy controls in the UI even though the Python alert layer accepts these values.
-- The result card uses a small client adapter to render Python barcode/name responses; it does not yet render the full Python image-analysis response or show ingredients/warnings from `/analyze`.
+- The result card uses a small client adapter to render Python barcode/name and image-analysis responses; detailed warning cards and field-level provenance are still not shown.
 - It does not expose score rubric citations, missing criteria rationale, provenance at the individual nutrient level, or an explicit informational-only note.
 - The score is presented as a single positive/negative verdict despite placeholder thresholds; future design should clearly explain its provisional status.
 - Keyboard focus, scanner accessibility, responsive behavior, and error presentation have not been formally audited.

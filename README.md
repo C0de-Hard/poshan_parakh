@@ -33,7 +33,7 @@ The active implementation is under `python/`:
 - `poshanparakh/pipeline.py` - combined analysis response
 - `tests/` - synthetic OCR and scoring tests
 
-The `backend/` and `frontend/` folders are an older React/Express/MongoDB prototype. They were not extended and should not be treated as the primary implementation.
+The `backend/` folder is an older Express/MongoDB prototype. The `frontend/` folder is the deployed React/Vite client for barcode/name lookup and packet-image upload; the Python FastAPI service remains the primary analysis implementation.
 
 ## Setup
 
@@ -85,6 +85,6 @@ http://127.0.0.1:8000/docs
 4. Improve the packaged-product frontend/UI around the new barcode camera flow.
 5. Test English and mixed-language Indian labels and document limitations.
 
-The React prototype now includes a browser barcode scanner through `@zxing/browser`. It requires camera permission and a secure browser context such as `localhost` or HTTPS.
+The React client includes a browser barcode scanner through `@zxing/browser` and packet-image upload. It requires camera permission and a secure browser context such as `localhost` or HTTPS. Set `VITE_API_URL` only when using a different FastAPI deployment; otherwise it defaults to the current Render service.
 
 See `PROJECT_STATUS.md` for the detailed handoff and current state.

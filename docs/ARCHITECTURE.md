@@ -63,7 +63,7 @@ The pipeline returns a common shape for all three supported product-analysis inp
 - `backend/lib/scoring.js`: separate JavaScript rubric and response breakdown. Its criteria/bands differ from the Python scoring model; results must not be treated as equivalent.
 - `backend/routes/scores.js` and `ScoreRecord.js`: scan-history persistence endpoints, not called by the frontend.
 
-The frontend barcode/name flow is now wired to the Python service. Label-image upload is still not exposed in the frontend, and the Express/MongoDB prototype remains independently deployable rather than part of the active path.
+The frontend barcode/name and label-image upload flows are now wired to the Python service. The Express/MongoDB prototype remains independently deployable rather than part of the active path.
 
 ## Persistence, external dependencies, and configuration
 

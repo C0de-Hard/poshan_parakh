@@ -1,6 +1,6 @@
 # PoshanParakh - Project Status / Handoff
 
-Updated: 29 Sep 2026
+Updated: 30 Sep 2026
 
 ## Project
 
@@ -75,6 +75,8 @@ food-rating-project/
 - Added a browser barcode scanner to the older React frontend using `@zxing/browser`.
 - Verified the frontend production build and browser scanner start/stop flow.
 - Added bounded retries and HTTP-status validation to the Python Open Food Facts client, with regression coverage for transient failures and salt-to-sodium conversion.
+- Connected the Vercel frontend to the Render FastAPI service for barcode/name lookup and packet-image upload, including a Python-response adapter and CORS allowlist.
+- Added an upload control for packet label images and fixed the camera video element to autoplay with a visible preview area.
 
 ## Validation Completed
 

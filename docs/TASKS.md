@@ -14,6 +14,7 @@ Checkboxes reflect repository evidence at that date. This is a current-state han
 - [x] Synthetic label fixtures and ground truth; recorded result 39/40 = 97.5% on those fixtures.
 - [x] Older React/Vite/Express/MongoDB prototype and barcode camera scanner exist as a separate stack.
 - [x] Vercel frontend barcode/name lookup is connected to the deployed Python API through a response adapter and CORS allowlist.
+- [x] Vercel frontend supports packet-image upload to FastAPI `/analyze` and displays the extracted score breakdown.
 - [x] Setup and known state are described in root `README.md` and `PROJECT_STATUS.md`.
 
 ## Priority 1: validate the current product behavior
