@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_API_URL || "https://poshan-parakh-api.onrender.com";
+const BASE_URL = import.meta.env.VITE_API_URL || "https://poshan-parakh.onrender.com";
 
 function toFrontendResult(data) {
   if (data.error) throw new Error(data.error);
