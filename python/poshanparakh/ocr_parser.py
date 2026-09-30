@@ -23,7 +23,7 @@ PATTERNS = {
     "fat_g":       rf"total\s*fat[^\d\n]{{0,10}}{NUM}\s*(g|mg)?",
     "sat_fat_g":   rf"(?:saturated\s*fat|sat\.?\s*fat)[^\d\n]{{0,10}}{NUM}\s*(g|mg)?",
     "carbs_g":     rf"(?:total\s*)?carbohydrate[s]?[^\d\n]{{0,10}}{NUM}\s*(g|mg)?",
-    "sugar_g":     rf"(?:total\s*)?sugar[s]?[^\d\n]{{0,10}}{NUM}\s*(g|mg)?",
+    "sugar_g":     rf"(?:total\s*)?(?:sugar[s]?|sucrose)[^\d\n]{{0,25}}{NUM}\s*(g|mg)?",
     "fibre_g":     rf"(?:dietary\s*)?fi(?:b|be)re?[^\d\n]{{0,10}}{NUM}\s*(g|mg)?",
     "sodium_mg":   rf"sodium[^\d\n]{{0,10}}{NUM}\s*(mg|g)?",
 }

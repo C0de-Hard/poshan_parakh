@@ -11,6 +11,7 @@ def test_parser_units():
     assert parse_nutrition("Energy 1000 kJ")["energy_kcal"] == 239.0
     assert parse_nutrition("Sodium 0.5 g")["sodium_mg"] == 500.0
     assert parse_nutrition("Protein 7,5 g")["protein_g"] == 7.5
+    assert parse_nutrition("Total Carbohydrates 25.1 g\nof which Sugar (Sucrose) 9.0 g")["sugar_g"] == 9.0
 
 def test_scoring_deterministic_and_adds_up():
     p = {"sugar_g": 10, "sat_fat_g": 3, "sodium_mg": 300, "protein_g": 8, "fibre_g": 4, "nova": 3}
