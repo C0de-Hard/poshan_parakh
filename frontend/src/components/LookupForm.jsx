@@ -7,7 +7,7 @@ const SAMPLE_BARCODES = [
 ];
 
 export default function LookupForm({ onLookup, onImageUpload, loading }) {
-  const [mode, setMode] = useState("barcode");
+  const [mode, setMode] = useState("upload");
   const [query, setQuery] = useState("");
   const [scanning, setScanning] = useState(false);
   const [scanError, setScanError] = useState(null);
@@ -55,6 +55,13 @@ export default function LookupForm({ onLookup, onImageUpload, loading }) {
     <div className="panel">
       <div className="tabs" role="tablist" aria-label="Product lookup mode">
         <button
+          className={`tab ${mode === "upload" ? "active" : ""}`}
+          onClick={() => { stopScanner(); setMode("upload"); }}
+          type="button"
+        >
+          Nutrition label
+        </button>
+        <button
           className={`tab ${mode === "barcode" ? "active" : ""}`}
           onClick={() => setMode("barcode")}
           type="button"
@@ -70,20 +77,22 @@ export default function LookupForm({ onLookup, onImageUpload, loading }) {
         </button>
       </div>
 
-      <div className="search-row">
-        <input
-          aria-label={mode === "barcode" ? "Product barcode" : "Product name"}
-          placeholder={mode === "barcode" ? "e.g. 3017620422003" : "e.g. Nutella"}
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          onKeyDown={(event) => event.key === "Enter" && submit()}
-        />
-        <button onClick={() => submit()} disabled={loading || scanning} type="button">
-          {loading ? "Looking up..." : "Look up"}
-        </button>
-      </div>
+      {mode !== "upload" && (
+        <div className="search-row">
+          <input
+            aria-label={mode === "barcode" ? "Product barcode" : "Product name"}
+            placeholder={mode === "barcode" ? "e.g. 3017620422003" : "e.g. Nutella"}
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            onKeyDown={(event) => event.key === "Enter" && submit()}
+          />
+          <button onClick={() => submit()} disabled={loading || scanning} type="button">
+            {loading ? "Looking up..." : "Look up"}
+          </button>
+        </div>
+      )}
 
-      {mode === "barcode" && (
+      {mode === "upload" && (
         <div className="label-upload-section">
           <h2>Nutrition label image</h2>
           <div className="upload-row">
@@ -129,14 +138,14 @@ export default function LookupForm({ onLookup, onImageUpload, loading }) {
 
       {scanError && <div className="scan-error">Camera unavailable: {scanError}</div>}
 
-      <div className="samples">
+      {mode !== "upload" && <div className="samples">
         Try: {SAMPLE_BARCODES.map((product, index) => (
           <span key={product.code}>
             <code onClick={() => { setMode("barcode"); setQuery(product.code); }}>{product.code}</code> ({product.name})
             {index < SAMPLE_BARCODES.length - 1 ? ", " : ""}
           </span>
         ))}
-      </div>
+      </div>}
     </div>
   );
 }
