@@ -23,10 +23,26 @@ PATTERNS = {
     "fat_g":       rf"total\s*fat[^\d\n]{{0,10}}{NUM}\s*(g|mg)?",
     "sat_fat_g":   rf"(?:saturated\s*fat|sat\.?\s*fat)[^\d\n]{{0,10}}{NUM}\s*(g|mg)?",
     "carbs_g":     rf"(?:total\s*)?carbohydrate[s]?[^\d\n]{{0,10}}{NUM}\s*(g|mg)?",
-    "sugar_g":     rf"(?:total\s*)?(?:sugar[s]?|sucrose)[^\d\n]{{0,25}}{NUM}\s*(g|mg)?",
+    "sugar_g":     rf"(?:total\s*)?(?:sugar[s]?|sucrose)[^\d]{{0,35}}{NUM}\s*(g|mg)?",
     "fibre_g":     rf"(?:dietary\s*)?fi(?:b|be)re?[^\d\n]{{0,10}}{NUM}\s*(g|mg)?",
     "sodium_mg":   rf"sodium[^\d\n]{{0,10}}{NUM}\s*(mg|g)?",
 }
+
+SERVING_SIZE_PATTERN = re.compile(r"(?:typical\s+value\s+for|serving\s+size|per)\s*(\d+(?:[.,]\d+)?)\s*g", re.I)
+PER_WEIGHT_KEYS = ("energy_kcal", "protein_g", "fat_g", "sat_fat_g", "carbs_g", "sugar_g", "fibre_g", "sodium_mg")
+
+def serving_size_g(text: str) -> float | None:
+    match = SERVING_SIZE_PATTERN.search(text)
+    if not match:
+        return None
+    return float(match.group(1).replace(",", "."))
+
+def normalize_per_100g(nutrition: dict, serving_g: float | None) -> dict:
+    if not serving_g or serving_g <= 0 or serving_g == 100:
+        return nutrition
+    factor = 100 / serving_g
+    return {key: round(value * factor, 2) if key in PER_WEIGHT_KEYS and value is not None else value
+            for key, value in nutrition.items()}
 
 def parse_nutrition(text: str) -> dict:
     out = {}
@@ -53,7 +69,8 @@ def parse_image(path: str) -> dict:
     img = cv2.imread(path)
     if img is None:
         raise ValueError(f"cannot read image: {path}")
-    return parse_nutrition(ocr_text(img))
+    text = ocr_text(img)
+    return normalize_per_100g(parse_nutrition(text), serving_size_g(text))
 
 
 # ---------------------------------------------------------------------------
@@ -90,5 +107,6 @@ def parse_image_full(path: str) -> dict:
     if img is None:
         raise ValueError(f"cannot read image: {path}")
     text = ocr_text(img)
-    return {"nutrition": parse_nutrition(text), "ingredients": parse_ingredients(text),
+    nutrition = normalize_per_100g(parse_nutrition(text), serving_size_g(text))
+    return {"nutrition": nutrition, "ingredients": parse_ingredients(text),
             "allergens": detect_allergens(text), "raw_text": text}

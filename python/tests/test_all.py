@@ -3,7 +3,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from poshanparakh.ocr_parser import parse_image, parse_nutrition
 from poshanparakh.scoring import score_product
 from poshanparakh.alerts import generate_alerts
-from poshanparakh.ocr_parser import parse_ingredients, detect_allergens
+from poshanparakh.ocr_parser import parse_ingredients, detect_allergens, normalize_per_100g, serving_size_g
 from poshanparakh import recommender, pipeline
 from poshanparakh import off_client
 
@@ -12,6 +12,8 @@ def test_parser_units():
     assert parse_nutrition("Sodium 0.5 g")["sodium_mg"] == 500.0
     assert parse_nutrition("Protein 7,5 g")["protein_g"] == 7.5
     assert parse_nutrition("Total Carbohydrates 25.1 g\nof which Sugar (Sucrose) 9.0 g")["sugar_g"] == 9.0
+    assert serving_size_g("Typical Value for 30 g") == 30
+    assert normalize_per_100g({"sugar_g": 9.0, "sodium_mg": 100}, 30) == {"sugar_g": 30.0, "sodium_mg": 333.33}
 
 def test_scoring_deterministic_and_adds_up():
     p = {"sugar_g": 10, "sat_fat_g": 3, "sodium_mg": 300, "protein_g": 8, "fibre_g": 4, "nova": 3}

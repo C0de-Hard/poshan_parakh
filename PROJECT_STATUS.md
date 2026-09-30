@@ -77,6 +77,7 @@ food-rating-project/
 - Added bounded retries and HTTP-status validation to the Python Open Food Facts client, with regression coverage for transient failures and salt-to-sodium conversion.
 - Connected the Vercel frontend to the Render FastAPI service for barcode/name lookup and packet-image upload, including a Python-response adapter and CORS allowlist.
 - Added an upload control for packet label images and fixed the camera video element to autoplay with a visible preview area.
+- Added serving-size detection and per-100-g normalization for labels such as `Typical Value for 30 g`, including multiline `Sugar (Sucrose)` extraction.
 
 ## Validation Completed
 

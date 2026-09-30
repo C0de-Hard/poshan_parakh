@@ -50,7 +50,7 @@ The last two endpoints are documented for repository transparency, not current p
 
 ## Internal data flow and normalization
 
-The score/alert layer expects keys `sugar_g`, `sat_fat_g`, `sodium_mg`, `protein_g`, `fibre_g`, and `nova`. OCR yields most nutrients but not NOVA. Open Food Facts values are converted from per-100-g nutrient fields; sodium is read directly where available or estimated from `salt_100g / 2.5`, then represented as mg. External data is not independently verified.
+The score/alert layer expects keys `sugar_g`, `sat_fat_g`, `sodium_mg`, `protein_g`, `fibre_g`, and `nova`. OCR yields most nutrients but not NOVA. OCR values declared for a detected serving size, such as `Typical Value for 30 g`, are normalized to a per-100-g basis before scoring. Open Food Facts values are converted from per-100-g nutrient fields; sodium is read directly where available or estimated from `salt_100g / 2.5`, then represented as mg. External data is not independently verified.
 
 The pipeline returns a common shape for all three supported product-analysis inputs. Barcode/name results can contain product identity and declared allergens; image results contain extracted nutrition, ingredient strings, and keyword-detected allergen groups. Ingredient parsing from external data currently splits on commas, which may not preserve nested/composite ingredient structure.
 
