@@ -9,6 +9,7 @@ from .ocr_parser import parse_image_full
 from .off_client import lookup_barcode, search_name
 from .recommender import recommend
 from .scoring import score_product
+from .vision import analyze_visual_context
 
 def _clean_allergens(tags: list[str]) -> list[str]:
     return [t.split(":")[-1].replace("-", "_") for t in tags or []]
@@ -48,7 +49,9 @@ def analyze_image(path: str, profile: dict | None = None) -> dict:
     """Input Path 2: label photo -> OCR -> parsing -> shared scoring. NOVA is unknown from a photo."""
     parsed = parse_image_full(path)
     nutrition = parsed["nutrition"] | {"source": "ocr"}
-    return _assemble(nutrition, parsed["allergens"], profile, parsed["ingredients"])
+    result = _assemble(nutrition, parsed["allergens"], profile, parsed["ingredients"])
+    result["vision_analysis"] = analyze_visual_context(path)
+    return result
 
 def analyze_food_photo(path: str) -> dict:
     """Algorithm 1: what food is in this photo (CNN)."""

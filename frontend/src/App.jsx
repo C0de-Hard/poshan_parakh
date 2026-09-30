@@ -54,7 +54,7 @@ export default function App() {
 
       {error && <div className="error" style={{ maxWidth: 760, margin: "0 auto" }}>{error}</div>}
 
-      {result && <ScoreDossier product={result.product} score={result.score} />}
+      {result && <ScoreDossier product={result.product} score={result.score} vision={result.vision} />}
     </div>
   );
 }

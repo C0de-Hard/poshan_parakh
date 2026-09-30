@@ -78,6 +78,7 @@ food-rating-project/
 - Connected the Vercel frontend to the Render FastAPI service for barcode/name lookup and packet-image upload, including a Python-response adapter and CORS allowlist.
 - Added an upload control for packet label images and fixed the camera video element to autoplay with a visible preview area.
 - Added serving-size detection and per-100-g normalization for labels such as `Typical Value for 30 g`, including multiline `Sugar (Sucrose)` extraction.
+- Added optional pretrained MobileNetV3-Small visual context output; it is advisory only and does not replace OCR or provide nutrition values.
 
 ## Validation Completed
 

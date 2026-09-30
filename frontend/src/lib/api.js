@@ -36,6 +36,7 @@ function toFrontendResult(data) {
       source: product.source || "ocr",
       ingredients_text: product.ingredients_text || (data.ingredients || []).join(", "),
     },
+    vision: data.vision_analysis || null,
     score: {
       total: analysis.score,
       breakdown: (analysis.breakdown || []).map((row) => ({

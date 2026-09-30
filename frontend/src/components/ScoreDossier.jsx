@@ -1,7 +1,7 @@
 import React from "react";
 import { bandFor } from "../lib/scoring";
 
-export default function ScoreDossier({ product, score }) {
+export default function ScoreDossier({ product, score, vision }) {
   const band = score.total != null ? bandFor(score.total) : null;
 
   return (
@@ -12,6 +12,14 @@ export default function ScoreDossier({ product, score }) {
       </div>
       <div className="brand">{product.brand} · barcode {product.barcode}</div>
       <div className="ingredients">{product.ingredients_text}</div>
+
+      {vision && !vision.error && (
+        <div className="vision-note">
+          <strong>Visual context</strong> · MobileNetV3-Small
+          <span>{vision.predictions.map((item) => `${item.label} (${Math.round(item.confidence * 100)}%)`).join(", ")}</span>
+          <small>{vision.note}</small>
+        </div>
+      )}
 
       <div className="composite-line">
         <span className={`composite-num tone-${band?.tone}`}>{score.total ?? "—"}</span>

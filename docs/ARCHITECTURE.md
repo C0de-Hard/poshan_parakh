@@ -31,6 +31,7 @@ Legacy prototype (separate runtime)
 - `python/app.py`: FastAPI app, request parsing, temporary upload storage, and endpoint definitions.
 - `python/poshanparakh/pipeline.py`: orchestration for image, barcode, and name flows; assembles normalized response fields.
 - `python/poshanparakh/ocr_parser.py`: OpenCV grayscale/upscale/CLAHE/Otsu preprocessing; Tesseract `--psm 6`; regex extraction, ingredient splitting, and keyword allergen detection.
+- `python/poshanparakh/vision.py`: optional MobileNetV3-Small ImageNet visual-context predictions; this layer never supplies nutrition values and fails open if pretrained weights are unavailable.
 - `python/poshanparakh/off_client.py`: HTTP client for Open Food Facts, bounded retries, normalization, and salt-to-sodium conversion.
 - `python/poshanparakh/scoring.py`: deterministic six-criterion point model and A–E grade mapping.
 - `python/poshanparakh/alerts.py`: general high-nutrient, dietary-preference, and allergen warnings.
@@ -42,7 +43,7 @@ Legacy prototype (separate runtime)
 | --- | --- | --- | --- |
 | `GET /barcode/{code}` | Barcode; optional `prefs`, `allergies` query values | Open Food Facts lookup and normalization, then shared analysis | Analysis object or pipeline error object |
 | `GET /search?q=...` | Product name; optional `prefs`, `allergies` | Search up to five results, analyze first, expose remaining match summaries | Analysis object or pipeline error object |
-| `POST /analyze` | Multipart `file`; optional `prefs`, `allergies` fields | Temporary file, OCR and parse, shared analysis, temporary-file deletion in `finally` | Analysis object |
+| `POST /analyze` | Multipart `file`; optional `prefs`, `allergies` fields | Temporary file, OCR and parse, optional MobileNet visual context, shared analysis, temporary-file deletion in `finally` | Analysis object |
 | `POST /classify` | Multipart `file` | Experimental image CNN inference | Error until model weights/classes exist |
 | `POST /recommend` | JSON `health_profile` | Experimental Random Forest inference | Error until recommender artifact exists |
 
