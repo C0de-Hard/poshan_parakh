@@ -83,22 +83,27 @@ export default function LookupForm({ onLookup, onImageUpload, loading }) {
         </button>
       </div>
 
-      <div className="upload-row">
-        <label className="camera-button upload-button">
-          Upload packet image
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(event) => {
-              const file = event.target.files?.[0];
-              if (file) onImageUpload(file);
-              event.target.value = "";
-            }}
-            disabled={loading}
-          />
-        </label>
-        <span>Use a clear photo of the nutrition label or ingredients.</span>
-      </div>
+      {mode === "barcode" && (
+        <div className="label-upload-section">
+          <h2>Nutrition label image</h2>
+          <div className="upload-row">
+            <label className="camera-button upload-button">
+              Upload image
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(event) => {
+                  const file = event.target.files?.[0];
+                  if (file) onImageUpload(file);
+                  event.target.value = "";
+                }}
+                disabled={loading}
+              />
+            </label>
+            <span>Upload a clear photo of the nutrition label or ingredients.</span>
+          </div>
+        </div>
+      )}
 
       {mode === "barcode" && (
         <div className="scanner-tools">
